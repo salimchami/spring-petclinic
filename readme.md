@@ -5,7 +5,7 @@
 ## Understanding the Spring Petclinic application with a few diagrams
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
 
-## Running petclinic locally
+## Running petclinic locally ( Using the CLI )
 Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/) or [Gradle](https://spring.io/guides/gs/gradle/). You can build a jar file and run it from the command line (it should work just as well with Java 17 or newer):
 
 ```
@@ -25,7 +25,7 @@ gets populated at startup with data. The h2 console is exposed at `http://localh
 and it is possible to inspect the content of the database using the `jdbc:h2:mem:testdb` url.
 
 
-## Running petclinic tests
+## Running petclinic tests ( using the CLI)
 Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/) or [Gradle](https://spring.io/guides/gs/gradle/).
 As we use gradle on the projet at L'Occitane, we recommend to go with the Gradle.
 From the root dir of your project, execute the command below: 
@@ -52,28 +52,28 @@ docker run -e POSTGRES_USER=petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES
 Further documentation is provided for [MySQL](https://github.com/spring-projects/spring-petclinic/blob/main/src/main/resources/db/mysql/petclinic_db_setup_mysql.txt)
 and for [PostgreSQL](https://github.com/spring-projects/spring-petclinic/blob/main/src/main/resources/db/postgres/petclinic_db_setup_postgres.txt).
 
-### Steps:
+### Steps ( without the CLI):
 
 1) On the command line run:
     ```
-    git clone https://github.com/spring-projects/spring-petclinic.git
+    git clone https://github.com/loccitane-group/spring-petclinic.git
     ```
 2) Inside Eclipse or STS:
     ```
-    File -> Import -> Maven -> Existing Maven project
+    File -> Import -> Maven -> Existing Gradle project
     ```
 
     Then either build on the command line `./mvnw generate-resources` or use the Eclipse launcher (right click on project and `Run As -> Maven install`) to generate the css. Run the application main method by right-clicking on it and choosing `Run As -> Java Application`.
 
-3) Inside IntelliJ IDEA
-    In the main menu, choose `File -> Open` and select the Petclinic [pom.xml](pom.xml). Click on the `Open` button.
 
-    CSS files are generated from the Maven build. You can build them on the command line `./mvnw generate-resources` or right-click on the `spring-petclinic` project then `Maven -> Generates sources and Update Folders`.
+3) Inside IntelliJ IDEA
+    In the main menu, choose `File -> Open` and select the Petclinic [build.gradle](build.gradle). 
+Click on the `Open` button.
 
     A run configuration named `PetClinicApplication` should have been created for you if you're using a recent Ultimate version. Otherwise, run the application by right-clicking on the `PetClinicApplication` main class and choosing `Run 'PetClinicApplication'`.
 
-4) Navigate to Petclinic
 
+4) Navigate to Petclinic
     Visit [http://localhost:8080](http://localhost:8080) in your browser.
 
 ### Technical assessement
@@ -84,7 +84,6 @@ and for [PostgreSQL](https://github.com/spring-projects/spring-petclinic/blob/ma
     How can you change the API so that the View ( Html) is separated from the Model?
 
 4. Create a new branch and implement your changes in the `vetController` class
-
 
 
 ## Looking for something in particular?
