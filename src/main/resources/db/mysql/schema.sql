@@ -5,17 +5,17 @@ CREATE TABLE IF NOT EXISTS vets (
   INDEX(last_name)
 ) engine=InnoDB;
 
-CREATE TABLE IF NOT EXISTS specialties (
+CREATE TABLE IF NOT EXISTS specialities (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(80),
   INDEX(name)
 ) engine=InnoDB;
 
-CREATE TABLE IF NOT EXISTS vet_specialties (
+CREATE TABLE IF NOT EXISTS vet_specialities (
   vet_id INT(4) UNSIGNED NOT NULL,
   specialty_id INT(4) UNSIGNED NOT NULL,
   FOREIGN KEY (vet_id) REFERENCES vets(id),
-  FOREIGN KEY (specialty_id) REFERENCES specialties(id),
+  FOREIGN KEY (specialty_id) REFERENCES specialities(id),
   UNIQUE (vet_id,specialty_id)
 ) engine=InnoDB;
 

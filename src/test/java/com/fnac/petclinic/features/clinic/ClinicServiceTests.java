@@ -27,6 +27,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,7 +64,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Michael Isvy
  * @author Dave Syer
  */
-@DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
+@DataJpaTest(includeFilters = @ComponentScan.Filter(value = {Service.class, Component.class}))
 // Ensure that if the mysql profile is active we connect to the real database:
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 // @TestPropertySource("/application-postgres.properties")
@@ -184,9 +185,9 @@ class ClinicServiceTests {
 
 		VetEntity vet = EntityUtils.getById(vets, VetEntity.class, 3);
 		assertThat(vet.getLastName()).isEqualTo("Douglas");
-		assertThat(vet.getNrOfSpecialties()).isEqualTo(2);
-		assertThat(vet.getSpecialties().get(0).getName()).isEqualTo("dentistry");
-		assertThat(vet.getSpecialties().get(1).getName()).isEqualTo("surgery");
+		assertThat(vet.getspecialities()).hasSize(2);
+		assertThat(vet.getspecialities().get(0).getName()).isEqualTo("dentistry");
+		assertThat(vet.getspecialities().get(1).getName()).isEqualTo("surgery");
 	}
 
 	@Test

@@ -15,18 +15,14 @@
  */
 package com.fnac.petclinic.features.vet.web;
 
-import com.fnac.petclinic.features.vet.dao.VetEntity;
-import com.fnac.petclinic.features.vet.dao.VetRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import com.fnac.petclinic.features.vet.common.VetMapper;
+import com.fnac.petclinic.features.vet.domain.Vets;
+import com.fnac.petclinic.features.vet.domain.VetsInventory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * @author Juergen Hoeller
@@ -37,45 +33,29 @@ import java.util.List;
 @Controller
 class VetController {
 
-	private final VetRepository vetRepository;
+	private final VetsInventory vetsInventory;
+	private final VetMapper vetMapper;
 
-	public VetController(VetRepository clinicService) {
-		this.vetRepository = clinicService;
+	public VetController(VetsInventory vetsInventory, VetMapper vetMapper) {
+		this.vetsInventory = vetsInventory;
+		this.vetMapper = vetMapper;
 	}
 
 	@GetMapping("/vets.html")
 	public String showVetList(@RequestParam(defaultValue = "1") int page, Model model) {
 		// Here we are returning an object of type 'Vets' rather than a collection of Vet
 		// objects so it is simpler for Object-Xml mapping
-		Vets vets = new Vets();
-		Page<VetEntity> paginated = findPaginated(page);
-		vets.getVetList().addAll(paginated.toList());
-		return addPaginationModel(page, paginated, model);
-
-	}
-
-	private String addPaginationModel(int page, Page<VetEntity> paginated, Model model) {
-		List<VetEntity> listVets = paginated.getContent();
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", paginated.getTotalPages());
-		model.addAttribute("totalItems", paginated.getTotalElements());
-		model.addAttribute("listVets", listVets);
+		// FIXME: info de pagination pageSize : devrait être envoyée par le client.
+		int pageSize = 5;
+		final Vets vetsList = vetsInventory.findAll(page, pageSize);
+		vetMapper.addVetListToModelDTO(vetsList, model, page);
 		return "vets/vetList";
 	}
 
-	private Page<VetEntity> findPaginated(int page) {
-		int pageSize = 5;
-		Pageable pageable = PageRequest.of(page - 1, pageSize);
-		return vetRepository.findAll(pageable);
-	}
-
-	@GetMapping({ "/vets" })
-	public @ResponseBody Vets showResourcesVetList() {
-		// Here we are returning an object of type 'Vets' rather than a collection of Vet
-		// objects so it is simpler for JSon/Object mapping
-		Vets vets = new Vets();
-		vets.getVetList().addAll(this.vetRepository.findAll());
-		return vets;
+	@GetMapping({"/vets"})
+	public @ResponseBody VetsDTO showResourcesVetList() {
+		var vets = this.vetsInventory.findAll();
+		return vetMapper.domainToDto(vets);
 	}
 
 }

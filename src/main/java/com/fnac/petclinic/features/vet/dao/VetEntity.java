@@ -17,7 +17,6 @@ package com.fnac.petclinic.features.vet.dao;
 
 import com.fnac.petclinic.features.common.dao.Person;
 import jakarta.persistence.*;
-import jakarta.xml.bind.annotation.XmlElement;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
@@ -36,30 +35,18 @@ import java.util.*;
 public class VetEntity extends Person {
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "vet_specialties", joinColumns = @JoinColumn(name = "vet_id"),
+	@JoinTable(name = "vet_specialities", joinColumns = @JoinColumn(name = "vet_id"),
 			inverseJoinColumns = @JoinColumn(name = "specialty_id"))
-	private Set<Specialty> specialties;
+	private Set<SpecialtyEntity> specialities = new HashSet<>();
 
-	protected Set<Specialty> getSpecialtiesInternal() {
-		if (this.specialties == null) {
-			this.specialties = new HashSet<>();
-		}
-		return this.specialties;
-	}
-
-	@XmlElement
-	public List<Specialty> getSpecialties() {
-		List<Specialty> sortedSpecs = new ArrayList<>(getSpecialtiesInternal());
+		public List<SpecialtyEntity> getspecialities() {
+		List<SpecialtyEntity> sortedSpecs = new ArrayList<>(specialities);
 		PropertyComparator.sort(sortedSpecs, new MutableSortDefinition("name", true, true));
 		return Collections.unmodifiableList(sortedSpecs);
 	}
 
-	public int getNrOfSpecialties() {
-		return getSpecialtiesInternal().size();
-	}
-
-	public void addSpecialty(Specialty specialty) {
-		getSpecialtiesInternal().add(specialty);
+	public void addSpecialty(SpecialtyEntity specialty) {
+		specialities.add(specialty);
 	}
 
 }

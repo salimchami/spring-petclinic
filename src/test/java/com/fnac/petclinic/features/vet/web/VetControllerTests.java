@@ -16,20 +16,21 @@
 
 package com.fnac.petclinic.features.vet.web;
 
-import com.fnac.petclinic.features.vet.dao.Specialty;
+import com.fnac.petclinic.features.vet.dao.SpecialtyEntity;
 import com.fnac.petclinic.features.vet.dao.VetEntity;
 import com.fnac.petclinic.features.vet.dao.VetRepository;
+import com.fnac.petclinic.utils.JsonReader;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -41,7 +42,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Test class for the {@link VetController}
  */
 
-@WebMvcTest(VetController.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
 class VetControllerTests {
 
 	@Autowired
@@ -63,7 +65,7 @@ class VetControllerTests {
 		helen.setFirstName("Helen");
 		helen.setLastName("Leary");
 		helen.setId(2);
-		Specialty radiology = new Specialty();
+		SpecialtyEntity radiology = new SpecialtyEntity();
 		radiology.setId(1);
 		radiology.setName("radiology");
 		helen.addSpecialty(radiology);
@@ -74,24 +76,23 @@ class VetControllerTests {
 	void setup() {
 		given(this.vets.findAll()).willReturn(Lists.newArrayList(james(), helen()));
 		given(this.vets.findAll(any(Pageable.class)))
-				.willReturn(new PageImpl<>(Lists.newArrayList(james(), helen())));
+			.willReturn(new PageImpl<>(Lists.newArrayList(james(), helen())));
 
 	}
 
 	@Test
 	void testShowVetListHtml() throws Exception {
-
 		mockMvc.perform(MockMvcRequestBuilders.get("/vets.html?page=1")).andExpect(status().isOk())
-				.andExpect(model().attributeExists("listVets")).andExpect(view().name("vets/vetList"));
+			.andExpect(model().attributeExists("listVets")).andExpect(view().name("vets/vetList"));
 
 	}
 
 	@Test
 	void testShowResourcesVetList() throws Exception {
-		ResultActions actions = mockMvc.perform(get("/vets").accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk());
-		actions.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.vetList[0].id").value(1));
+		var expectedVets = JsonReader.toExpectedJson("vets", "vets");
+		mockMvc.perform(get("/vets").accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+			.andExpect(content().json(expectedVets, true));
 	}
-
 }

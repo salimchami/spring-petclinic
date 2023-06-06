@@ -15,12 +15,12 @@
  */
 package com.fnac.petclinic.features.vet.web;
 
-import com.fnac.petclinic.features.vet.dao.VetEntity;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Simple domain object representing a list of veterinarians. Mostly here to be used for
@@ -29,16 +29,20 @@ import java.util.List;
  * @author Arjen Poutsma
  */
 @XmlRootElement
-public class Vets {
+public class VetsDTO {
 
-	private List<VetEntity> vetList;
+	private final List<VetDTO> vetList;
+
+	public VetsDTO(List<VetDTO> vetList) {
+		this.vetList = Optional.ofNullable(vetList).orElse(new ArrayList<>());
+	}
 
 	@XmlElement
-	public List<VetEntity> getVetList() {
-		if (vetList == null) {
-			vetList = new ArrayList<>();
-		}
+	public List<VetDTO> getVetList() {
 		return vetList;
 	}
 
+	public int vetsSize() {
+		return vetList.size();
+	}
 }

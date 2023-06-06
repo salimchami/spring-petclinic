@@ -5,15 +5,15 @@ INSERT INTO vets VALUES (4, 'Rafael', 'Ortega');
 INSERT INTO vets VALUES (5, 'Henry', 'Stevens');
 INSERT INTO vets VALUES (6, 'Sharon', 'Jenkins');
 
-INSERT INTO specialties VALUES (1, 'radiology');
-INSERT INTO specialties VALUES (2, 'surgery');
-INSERT INTO specialties VALUES (3, 'dentistry');
+INSERT INTO specialities VALUES (1, 'radiology');
+INSERT INTO specialities VALUES (2, 'surgery');
+INSERT INTO specialities VALUES (3, 'dentistry');
 
-INSERT INTO vet_specialties VALUES (2, 1);
-INSERT INTO vet_specialties VALUES (3, 2);
-INSERT INTO vet_specialties VALUES (3, 3);
-INSERT INTO vet_specialties VALUES (4, 2);
-INSERT INTO vet_specialties VALUES (5, 1);
+INSERT INTO vet_specialities VALUES (2, 1);
+INSERT INTO vet_specialities VALUES (3, 2);
+INSERT INTO vet_specialities VALUES (3, 3);
+INSERT INTO vet_specialities VALUES (4, 2);
+INSERT INTO vet_specialities VALUES (5, 1);
 
 INSERT INTO types VALUES (1, 'cat');
 INSERT INTO types VALUES (2, 'dog');
