@@ -2,7 +2,7 @@ package com.occitane.petclinic.features.vet.domain;
 
 import java.util.Collection;
 
-public record Vet(Collection<Speciality> specialities, String firstName, String lastName) {
+public record Vet(Integer id, Collection<Speciality> specialities, String firstName, String lastName) {
 
 	@Override
 	public Collection<Speciality> specialities() {

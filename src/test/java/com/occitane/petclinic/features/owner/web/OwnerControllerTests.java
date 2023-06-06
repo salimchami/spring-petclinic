@@ -16,7 +16,6 @@
 
 package com.occitane.petclinic.features.owner.web;
 
-import com.fnac.petclinic.features.owner.dao.*;
 import com.occitane.petclinic.features.owner.dao.*;
 import org.assertj.core.util.Lists;
 import org.hamcrest.BaseMatcher;

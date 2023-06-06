@@ -16,7 +16,6 @@
 
 package com.occitane.petclinic.features.clinic;
 
-import com.fnac.petclinic.features.owner.dao.*;
 import com.occitane.petclinic.features.vet.dao.VetEntity;
 import com.occitane.petclinic.features.vet.dao.VetRepository;
 import com.occitane.petclinic.features.owner.dao.*;

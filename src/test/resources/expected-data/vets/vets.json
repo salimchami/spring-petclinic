@@ -1,15 +1,17 @@
 {
   "vetList": [
     {
+      "id": 1,
       "specialities": [],
       "firstName": "James",
       "lastName": "Carter",
       "nrOfSpecialities": 0
     },
     {
+      "id": 2,
       "specialities": [
         {
-          "name": "raddsdfqsdfqsdfiology"
+          "name": "radiology"
         }
       ],
       "firstName": "Helen",

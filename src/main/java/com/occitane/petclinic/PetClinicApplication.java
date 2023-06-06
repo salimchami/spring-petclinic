@@ -27,7 +27,7 @@ import org.springframework.context.annotation.ImportRuntimeHints;
  * @author Dave Syer
  *
  */
-@SpringBootApplication(scanBasePackages = {"com.fnac.petclinic"})
+@SpringBootApplication(scanBasePackages = {"com.occitane.petclinic"})
 @ImportRuntimeHints(PetClinicRuntimeHints.class)
 public class PetClinicApplication {
 

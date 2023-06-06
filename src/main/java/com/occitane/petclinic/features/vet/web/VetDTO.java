@@ -10,6 +10,8 @@ import java.util.Collection;
 public class VetDTO {
 
 	@XmlElement
+	private final Integer id;
+	@XmlElement
 	private final Collection<Speciality> specialities;
 	@XmlElement
 	private final String firstName;
@@ -18,7 +20,8 @@ public class VetDTO {
 	@XmlElement
 	private final int nrOfSpecialities;
 
-	public VetDTO(Collection<Speciality> specialities, String firstName, String lastName) {
+	public VetDTO(Integer id, Collection<Speciality> specialities, String firstName, String lastName) {
+		this.id = id;
 		this.specialities = specialities;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -39,5 +42,9 @@ public class VetDTO {
 
 	public int getNrOfSpecialities() {
 		return nrOfSpecialities;
+	}
+
+	public Integer getId() {
+		return id;
 	}
 }

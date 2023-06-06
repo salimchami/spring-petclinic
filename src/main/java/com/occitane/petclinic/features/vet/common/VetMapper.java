@@ -40,7 +40,7 @@ public class VetMapper {
 	}
 
 	public VetDTO domainToDto(Vet vet) {
-		return new VetDTO(specialityMapper.domainToDto(vet.specialities()), vet.firstName(), vet.lastName());
+		return new VetDTO(vet.id(), specialityMapper.domainToDto(vet.specialities()), vet.firstName(), vet.lastName());
 	}
 
 	public Collection<Vet> entityToDomain(Collection<VetEntity> vets) {
@@ -48,6 +48,6 @@ public class VetMapper {
 	}
 	public Vet entityToDomain(VetEntity vet) {
 		var specialities = specialityMapper.entityToDomain(vet.getspecialities());
-		return new Vet(specialities, vet.getFirstName(), vet.getLastName());
+		return new Vet(vet.getId(), specialities, vet.getFirstName(), vet.getLastName());
 	}
 }
