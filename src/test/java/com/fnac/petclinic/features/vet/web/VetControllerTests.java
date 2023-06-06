@@ -17,7 +17,7 @@
 package com.fnac.petclinic.features.vet.web;
 
 import com.fnac.petclinic.features.vet.dao.Specialty;
-import com.fnac.petclinic.features.vet.dao.Vet;
+import com.fnac.petclinic.features.vet.dao.VetEntity;
 import com.fnac.petclinic.features.vet.dao.VetRepository;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,16 +50,16 @@ class VetControllerTests {
 	@MockBean
 	private VetRepository vets;
 
-	private Vet james() {
-		Vet james = new Vet();
+	private VetEntity james() {
+		VetEntity james = new VetEntity();
 		james.setFirstName("James");
 		james.setLastName("Carter");
 		james.setId(1);
 		return james;
 	}
 
-	private Vet helen() {
-		Vet helen = new Vet();
+	private VetEntity helen() {
+		VetEntity helen = new VetEntity();
 		helen.setFirstName("Helen");
 		helen.setLastName("Leary");
 		helen.setId(2);

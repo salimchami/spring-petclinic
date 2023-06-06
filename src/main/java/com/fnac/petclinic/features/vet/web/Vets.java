@@ -15,7 +15,7 @@
  */
 package com.fnac.petclinic.features.vet.web;
 
-import com.fnac.petclinic.features.vet.dao.Vet;
+import com.fnac.petclinic.features.vet.dao.VetEntity;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
@@ -31,10 +31,10 @@ import java.util.List;
 @XmlRootElement
 public class Vets {
 
-	private List<Vet> vetList;
+	private List<VetEntity> vetList;
 
 	@XmlElement
-	public List<Vet> getVetList() {
+	public List<VetEntity> getVetList() {
 		if (vetList == null) {
 			vetList = new ArrayList<>();
 		}

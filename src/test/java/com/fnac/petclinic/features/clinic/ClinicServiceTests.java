@@ -17,7 +17,7 @@
 package com.fnac.petclinic.features.clinic;
 
 import com.fnac.petclinic.features.owner.dao.*;
-import com.fnac.petclinic.features.vet.dao.Vet;
+import com.fnac.petclinic.features.vet.dao.VetEntity;
 import com.fnac.petclinic.features.vet.dao.VetRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -180,9 +180,9 @@ class ClinicServiceTests {
 
 	@Test
 	void shouldFindVets() {
-		Collection<Vet> vets = this.vets.findAll();
+		Collection<VetEntity> vets = this.vets.findAll();
 
-		Vet vet = EntityUtils.getById(vets, Vet.class, 3);
+		VetEntity vet = EntityUtils.getById(vets, VetEntity.class, 3);
 		assertThat(vet.getLastName()).isEqualTo("Douglas");
 		assertThat(vet.getNrOfSpecialties()).isEqualTo(2);
 		assertThat(vet.getSpecialties().get(0).getName()).isEqualTo("dentistry");
