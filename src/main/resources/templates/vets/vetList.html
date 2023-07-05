@@ -11,15 +11,15 @@
   <thead>
   <tr>
     <th>Name</th>
-    <th>Specialties</th>
+    <th>specialities</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="vet : ${listVets}">
     <td th:text="${vet.firstName + ' ' + vet.lastName}"></td>
-    <td><span th:each="specialty : ${vet.specialties}"
+    <td><span th:each="specialty : ${vet.specialities}"
               th:text="${specialty.name + ' '}"/> <span
-      th:if="${vet.nrOfSpecialties == 0}">none</span></td>
+      th:if="${vet.nrOfSpecialities == 0}">none</span></td>
   </tr>
   </tbody>
 </table>
